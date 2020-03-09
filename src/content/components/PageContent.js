@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import SideBar from "../../side-bar/components/SideBar";
 
-class ExamplePage extends Component {
+class PageContent extends Component {
     render() {
         return (
             <div className='container'>
                 <div className='row'>
                     <div className='col'>
-                        <h1>Example page 2</h1>
+                        <h1>Page content</h1>
+                        <SideBar />
                     </div>
                 </div>
             </div>);
     }
 }
 
-export default connect(null, {})(ExamplePage);
+export default connect(null, {})(PageContent);
