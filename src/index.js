@@ -4,8 +4,10 @@ import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'connected-react-router';
 import store, {history} from './store';
 
-import App from './app';
+import 'antd/dist/antd.css';
 import '../style/basic.scss';
+
+import App from './app';
 
 if (module.hot) {
     module.hot.accept();
