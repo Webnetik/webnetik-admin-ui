@@ -8,7 +8,7 @@ const pageTitle = ({title}) => {
                 <PageHeader
                     avatar={{ }}
                     className="site-page-header"
-                    style={{ padding: 0 }}
+                    style={{ padding: 0, paddingBottom: "10px" }}
                     title={title}
                 />
             </Col>
