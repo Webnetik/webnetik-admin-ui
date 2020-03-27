@@ -6,6 +6,7 @@ const pageTitle = ({title}) => {
         <Row>
             <Col>
                 <PageHeader
+                    avatar={{ }}
                     className="site-page-header"
                     style={{ padding: 0 }}
                     title={title}

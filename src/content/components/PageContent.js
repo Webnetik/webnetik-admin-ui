@@ -78,7 +78,7 @@ class MyLayout extends Component {
                         </div>
                     </Header>
                     <Content style={{ margin: '10px 10px 0' }}>
-                        <div className="site-layout-background p-1 p-md-4" style={{ paddingLeft: "20px", minHeight: 360 }}>
+                        <div className="site-layout-background p-1 p-md-4" style={{ paddingTop: 0, paddingLeft: "20px", minHeight: 360 }}>
                             <PageTitle title="User roles and capabilities" />
                             <SelectField />
                             <SaveBtn />
