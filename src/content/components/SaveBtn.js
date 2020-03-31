@@ -18,8 +18,8 @@ class SaveBtn extends PureComponent {
 
     render() {
         return (
-            <Row>
-                <Col className="mt-4 pt-4 pt-md-3">
+            <Row style={{ marginTop: '20px' }}>
+                <Col>
                     <Button type="primary" loading={this.state.loading} onClick={() => this.enterLoading()}>
                         Save
                     </Button>
