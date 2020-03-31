@@ -1,31 +1,64 @@
 import React, { Component } from 'react';
-
-//import { Menu } from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
-
+import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-
 const { SubMenu } = Menu;
+
+import { history } from '../../store';
 
 class MyMenu extends Component {
 
     constructor(props) {
         super(props);
 
-        this.rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
+        const menuItems = [
+            {
+                key: 'settings',
+                name: 'Settings',
+                icon: <SettingOutlined />,
+                items: [
+                    {
+                        key: 'users',
+                        label: 'Users',
+                        to: '/users'
+                    },
+                    {
+                        key: 'roles-capabilities',
+                        label: 'Roles and capabilities',
+                        to: '/roles-and-capabilities'
+                    }
+                ]
+            },
+            {
+                key: 'projects',
+                name: 'Projects',
+                icon: <AppstoreOutlined />,
+                items: [
+                    {
+                        key: 'users2',
+                        label: 'Users2',
+                        to: '/users2'
+                    },
+                    {
+                        key: 'roles-capabilities2',
+                        label: 'Roles and capabilities2',
+                        to: '/'
+                    }
+                ]
+            }
+        ];
+
+        this.rootSubmenuKeys = menuItems.map(group => group.key);
 
         this.state = {
-            openKeys: ['sub1'],
+            openKeys: ['settings'],
+            menuItems
         }
     }
 
-    handleClick(e) {
-        console.log('click ', e);
-    };
-
     onOpenChange(openKeys) {
+        console.log(openKeys);
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+
         if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
             this.setState({ openKeys });
         } else {
@@ -33,57 +66,62 @@ class MyMenu extends Component {
                 openKeys: latestOpenKey ? [latestOpenKey] : [],
             });
         }
-    };
-    
+    }
+
+    changeRoute(to) {
+        history.push(to);
+    }
+
+    getMenu() {
+        return(
+            <Menu
+                mode="inline"
+                openKeys={this.state.openKeys}
+                onOpenChange={(keys) => this.onOpenChange(keys)}>
+                {
+                    this.state.menuItems.map(group => {
+                        return (
+                            <SubMenu
+                                key={group.key}
+                                title={
+                                    <span>
+                                        {group.icon}
+                                        <span>{group.name}</span>
+                                    </span>
+                                }>
+                                {
+                                    group.items.map(item => {
+                                        return (
+                                            <Menu.Item key={item.key} onClick={() => this.changeRoute(item.to)}>
+                                               {item.label}
+                                            </Menu.Item>
+                                        )
+                                    })
+                                }
+                            </SubMenu>
+                        )
+                    })
+                }
+            </Menu>
+        );
+    }
+
     render() {
-        const { Header, Content, Footer, Sider } = Layout;
+        const { Sider } = Layout;
 
         return(
                 <Sider
                     breakpoint="lg"
                     collapsedWidth="0"
                     onBreakpoint={broken => {
-                        console.log(broken);
+                        //console.log(broken);
                     }}
                     onCollapse={(collapsed, type) => {
-                        console.log(collapsed, type);
+                        //console.log(collapsed, type);
                     }}
                 >
                     <div className="logo" />
-                    <Menu
-                        mode="inline"
-                        openKeys={this.state.openKeys}
-                        onOpenChange={(keys) => this.onOpenChange(keys)}
-                       >
-                        <SubMenu
-                            key="sub1"
-                            title={
-                                <span>
-                                    <SettingOutlined />
-                                    <span>Settings</span>
-                                </span>
-                            }>
-                            <Menu.Item key="1">Roles and capabilities</Menu.Item>
-                            <Menu.Item key="2">Option 2</Menu.Item>
-                            <Menu.Item key="3">Option 3</Menu.Item>
-                            <Menu.Item key="4">Option 4</Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub2"
-                            title={
-                                <span>
-                                  <AppstoreOutlined />
-                                  <span>Navigation Two</span>
-                                </span>
-                            }>
-                            <Menu.Item key="5">Option 5</Menu.Item>
-                            <Menu.Item key="6">Option 6</Menu.Item>
-                            <SubMenu key="sub3" title="Submenu">
-                                <Menu.Item key="7">Option 7</Menu.Item>
-                                <Menu.Item key="8">Option 8</Menu.Item>
-                            </SubMenu>
-                        </SubMenu>
-                    </Menu>
+                    {this.getMenu()}
                 </Sider>
         );
     }

@@ -1,0 +1,1 @@
+export const GET_USERS_URL = 'http://localhost:3002/users/users';
