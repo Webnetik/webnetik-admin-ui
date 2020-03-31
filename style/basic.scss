@@ -1,14 +1,23 @@
-$grid-gutter-width: 14px;
-$h1-font-size: 24px;
-$h2-font-size: 22px;
-$body-bg: #f1f1f1;
+//$grid-gutter-width: 14px;
+//$h1-font-size: 24px;
+//$h2-font-size: 22px;
+//$body-bg: #f1f1f1;
 
-@import "~bootstrap/scss/bootstrap.scss";
+//@import "~bootstrap/scss/bootstrap.scss";
+
+.site-layout-background {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+
+  @media (min-width: 576px) {
+    padding-left: 20px !important;
+  }
+}
 
 .ant-layout-sider-zero-width-trigger {
-  top: 2px;
-  line-height: 20px;
-  height: 30px;
+ top: 0px;
+ line-height: 28px;
+ height: 30px;
 }
 
 header.ant-layout-header.site-layout-sub-header-background {
@@ -85,3 +94,10 @@ header.ant-layout-header.site-layout-sub-header-background {
 [data-theme="dark"] .ant-layout-content {
   //background: #107bcb;
 }
+
+
+/*{
+  width: 20px;
+  heigth: 20px;
+  margin-top: 7xp;
+}*/

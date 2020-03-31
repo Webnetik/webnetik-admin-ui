@@ -2,7 +2,7 @@ import React from 'react';
 
 const Box = ({ children }) => {
     return(
-        <div>
+        <div style={{ marginTop: '10px' }}>
             {children}
         </div>
     );
