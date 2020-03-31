@@ -6,8 +6,9 @@ $body-bg: #f1f1f1;
 @import "~bootstrap/scss/bootstrap.scss";
 
 .ant-layout-sider-zero-width-trigger {
-  top: 5px;
-  line-height: 32px;
+  top: 2px;
+  line-height: 20px;
+  height: 30px;
 }
 
 header.ant-layout-header.site-layout-sub-header-background {
