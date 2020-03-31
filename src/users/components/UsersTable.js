@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import { connect } from 'react-redux';
 import {Table, Spin, Col, Tag} from 'antd';
 
-import { getUsers } from './actions/index';
+import { getUsers } from '../actions/index';
 
 class UsersTable extends PureComponent {
 

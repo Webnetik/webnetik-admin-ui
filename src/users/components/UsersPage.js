@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Col, Layout, Row} from 'antd';
-import MyMenu from '../content/components/Menu';
-import PageTitle from '../content/components/PageTitle';
+import MyMenu from '../../content/components/Menu';
+import PageTitle from '../../content/components/PageTitle';
 import UsersTable from './UsersTable';
+import FormSizeDemo from './AddUserForm';
 
 const { Header, Content } = Layout;
 
@@ -31,7 +32,7 @@ class UsersPage extends Component {
                 <Layout>
                     <Header className="site-layout-sub-header-background" style={{ height: '30px', padding: 0, paddingTop: '13px', paddingBottom: '12px', lineHeight: '18px', paddingLeft: '20px' }}>
                     </Header>
-                    <Content style={{ }}>
+                    <Content>
                         <div className="site-layout-background" style={{ paddingTop: '20px', paddingLeft: "20px", minHeight: 360 }}>
                             <Row>
                                 <Col>
@@ -41,6 +42,11 @@ class UsersPage extends Component {
                             <Row >
                                 <Col>
                                     <UsersTable />
+                                </Col>
+                            </Row>
+                            <Row >
+                                <Col>
+                                    <FormSizeDemo />
                                 </Col>
                             </Row>
                         </div>
