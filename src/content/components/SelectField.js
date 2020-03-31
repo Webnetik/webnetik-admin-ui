@@ -22,11 +22,11 @@ const selectField = () => {
             {
                 roles.map(role => {
                     return (
-                        <Row key={role} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }} className="pt-4">
+                        <Row key={role} gutter={{ xs: 8, sm: 16, md: 24, lg: 38 }} className="pt-4">
                             <Col span={8} lg={3} style={{ color: "#999" }}  className="pt-1">
                                 {role}
                             </Col>
-                            <Col>
+                            <Col lg={5}>
                                 <Select
                                     mode="multiple"
                                     style={{ minWidth: "200px" }}
