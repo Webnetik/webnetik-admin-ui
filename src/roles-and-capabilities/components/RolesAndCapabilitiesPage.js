@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import {Col, Layout, Row} from 'antd';
 import MyMenu from '../../menu/components/Menu';
 import PageTitle from '../../content/components/PageTitle';
-import UsersTable from './UsersTable';
-import FormSizeDemo from './AddUserForm';
+import SelectFields from "./SelectFields";
+import SaveBtn from "./SaveBtn";
 
 const { Header, Content } = Layout;
 
-class UsersPage extends Component {
+class RolesAndCapabilitiesPage extends Component {
 
     constructor(props) {
         super(props);
@@ -24,17 +24,13 @@ class UsersPage extends Component {
                         <div className="site-layout-background" style={{ paddingTop: '20px', paddingLeft: "20px", minHeight: 360 }}>
                             <Row>
                                 <Col>
-                                    <PageTitle title="Users" />
+                                    <PageTitle title="Roles and Capabilities" />
                                 </Col>
                             </Row>
-                            <Row >
+                            <SelectFields />
+                            <Row>
                                 <Col>
-                                    <UsersTable />
-                                </Col>
-                            </Row>
-                            <Row >
-                                <Col>
-                                    <FormSizeDemo />
+                                    <SaveBtn />
                                 </Col>
                             </Row>
                         </div>
@@ -45,4 +41,4 @@ class UsersPage extends Component {
     }
 };
 
-export default UsersPage;
+export default RolesAndCapabilitiesPage;

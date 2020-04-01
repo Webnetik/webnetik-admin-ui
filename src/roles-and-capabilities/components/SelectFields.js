@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Col, Row, Select} from 'antd';
 
 const { Option } = Select;
@@ -16,7 +16,7 @@ function handleChange(value) {
     console.log(`selected ${value}`);
 }
 
-const selectField = () => {
+const selectFields = () => {
     return(
         <>
             {
@@ -44,4 +44,4 @@ const selectField = () => {
     );
 };
 
-export default selectField;
+export default selectFields;

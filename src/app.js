@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
 
-import PageContent from './content/components/PageContent';
-import TopBar from './top-bar/components/TopBar';
-
 import UsersPage from './users/components/UsersPage';
+import RolesAndCapabilitiesPage from "./roles-and-capabilities/components/RolesAndCapabilitiesPage";
 
 export default class App extends Component {
-    render(){
+    render() {
         return(
             <>
                 <Switch>
-                    <Route path='/' exact={true} component={PageContent} />
-                    <Route path='/roles-and-capabilities' component={PageContent} />
+                    <Route path='/' exact={true} component={RolesAndCapabilitiesPage} />
+                    <Route path='/roles-and-capabilities' component={RolesAndCapabilitiesPage} />
                     <Route path='/users' component={UsersPage} />
                 </Switch>
             </>
