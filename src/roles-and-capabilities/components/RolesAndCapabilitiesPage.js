@@ -15,28 +15,25 @@ class RolesAndCapabilitiesPage extends Component {
 
     render() {
         return (
-            <Layout style={{ height: '100vh' }}>
-                <MyMenu />
-                <Layout>
-                    <Header className="site-layout-sub-header-background" style={{ height: '30px', padding: 0, paddingTop: '13px', paddingBottom: '12px', lineHeight: '18px', paddingLeft: '20px' }}>
-                    </Header>
-                    <Content>
-                        <div className="site-layout-background" style={{ paddingTop: '20px', paddingLeft: "20px", minHeight: 360 }}>
-                            <Row>
-                                <Col>
-                                    <PageTitle title="Roles and Capabilities" />
-                                </Col>
-                            </Row>
-                            <SelectFields />
-                            <Row>
-                                <Col>
-                                    <SaveBtn />
-                                </Col>
-                            </Row>
-                        </div>
-                    </Content>
-                </Layout>
-            </Layout>
+            <>
+                <Header className="site-layout-sub-header-background" style={{ height: '30px', padding: 0, paddingTop: '13px', paddingBottom: '12px', lineHeight: '18px', paddingLeft: '20px' }}>
+                </Header>
+                <Content>
+                    <div className="site-layout-background" style={{ paddingTop: '20px', paddingLeft: "20px", minHeight: 360 }}>
+                        <Row>
+                            <Col>
+                                <PageTitle title="Roles and Capabilities" />
+                            </Col>
+                        </Row>
+                        <SelectFields />
+                        <Row>
+                            <Col>
+                                <SaveBtn />
+                            </Col>
+                        </Row>
+                    </div>
+                </Content>
+            </>
         );
     }
 };

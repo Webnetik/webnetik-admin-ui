@@ -56,7 +56,6 @@ class MyMenu extends Component {
     }
 
     onOpenChange(openKeys) {
-        console.log(openKeys);
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
 
         if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -79,7 +78,8 @@ class MyMenu extends Component {
                 openKeys={this.state.openKeys}
                 onOpenChange={(keys) => this.onOpenChange(keys)}>
                 {
-                    this.state.menuItems.map(group => {
+                    this.state.menuItems.map((group, index) => {
+                        console.log('index: ', group.key);
                         return (
                             <SubMenu
                                 key={group.key}
@@ -90,7 +90,8 @@ class MyMenu extends Component {
                                     </span>
                                 }>
                                 {
-                                    group.items.map(item => {
+                                    group.items.map((item, index2) => {
+                                        console.log('item.key: ', item.key);
                                         return (
                                             <Menu.Item key={item.key} onClick={() => this.changeRoute(item.to)}>
                                                {item.label}
