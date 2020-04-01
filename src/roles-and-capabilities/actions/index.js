@@ -6,10 +6,7 @@ export function getRoles() {
     return async dispatch => {
         const result = await get(GET_ROLES_URL);
 
-        dispatch({
-            type: GET_ROLES,
-            payload: [...result.data.roles]
-        });
+        dispatch(loadRoles([...result.data.roles]));
     }
 }
 
@@ -21,5 +18,12 @@ export function getCapabilities() {
             type: GET_CAPABILITIES,
             payload: [...result.data.capabilities]
         });
+    }
+}
+
+export function loadRoles(roles) {
+    return {
+        type: GET_ROLES,
+        payload: roles
     }
 }

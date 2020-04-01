@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
+import { connect } from 'react-redux';
 import {Col, Row, Select, Spin} from 'antd';
 const { Option } = Select;
+import { changeRoleCapability } from '../actions/roles';
 
-const selectFields = ({ roles, capabilities }) => {
-    function handleChange(value) {
-        console.log(`selected ${value}`);
+class SelectFields extends PureComponent {
+    handleChange(capabilities, roleId) {
+        this.props.changeRoleCapability(roleId, capabilities);
     }
 
-    function getOptions(data) {
+    getOptions(data) {
         const options = [];
         for (let i = 0; i < data.length; i++) {
             options.push(<Option key={data[i].name}>{data[i].name}</Option>);
@@ -15,40 +17,45 @@ const selectFields = ({ roles, capabilities }) => {
         return options;
     }
 
-    if(roles && capabilities) {
-        return(
-            <>
-                {
-                    roles.map(role => {
-                        const roleCapabilities = role.capabilities.map(capability => capability.name);
+    getRoleCapabilities(role) {
+        return role.capabilities.map(capability => capability.name);
+    }
 
-                        console.log('roleCapabilities: ', roleCapabilities);
-                        console.log('capabilities: ', capabilities);
+    render() {
+        if(this.props.roles && this.props.capabilities) {
+            return(
+                this.props.roles.map(role => {
+                    const roleCapabilities = this.getRoleCapabilities(role);
 
-                        return (
-                            <Row key={role.id} gutter={{ xs: 8, sm: 16, md: 24, lg: 38 }} style={{ marginTop: '10px' }}>
-                                <Col span={8} lg={3} style={{ color: '#999', paddingTop: '5px' }}>
-                                    {role.name}
-                                </Col>
-                                <Col lg={5}>
-                                    <Select
-                                        mode="multiple"
-                                        style={{ minWidth: "200px" }}
-                                        placeholder="Please select"
-                                        defaultValue={ roleCapabilities }
-                                        onChange={ handleChange }>
-                                        { getOptions(capabilities) }
-                                    </Select>
-                                </Col>
-                            </Row>
-                        )
-                    })
-                }
-            </>
-        );
-    } else {
-        return <Spin />
+                    return (
+                        <Row key={role.id} gutter={{ xs: 8, sm: 16, md: 24, lg: 38 }} style={{ marginTop: '10px' }}>
+                            <Col span={8} lg={3} style={{ color: '#999', paddingTop: '5px' }}>
+                                {role.name}
+                            </Col>
+                            <Col lg={5}>
+                                <Select
+                                    mode="multiple"
+                                    style={{ minWidth: "200px" }}
+                                    placeholder="Please select"
+                                    defaultValue={ roleCapabilities }
+                                    onChange={ (value) => this.handleChange(value, role.id) }>
+                                    { this.getOptions(this.props.capabilities) }
+                                </Select>
+                            </Col>
+                        </Row>
+                    )
+                })
+            );
+        } else {
+            return <Spin />
+        }
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        roles2: state.roles.roles
     }
 };
 
-export default selectFields;
+export default connect(mapStateToProps, { changeRoleCapability })(SelectFields);
