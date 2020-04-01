@@ -79,7 +79,6 @@ class MyMenu extends Component {
                 onOpenChange={(keys) => this.onOpenChange(keys)}>
                 {
                     this.state.menuItems.map((group, index) => {
-                        console.log('index: ', group.key);
                         return (
                             <SubMenu
                                 key={group.key}
@@ -91,7 +90,6 @@ class MyMenu extends Component {
                                 }>
                                 {
                                     group.items.map((item, index2) => {
-                                        console.log('item.key: ', item.key);
                                         return (
                                             <Menu.Item key={item.key} onClick={() => this.changeRoute(item.to)}>
                                                {item.label}
