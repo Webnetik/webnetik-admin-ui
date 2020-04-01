@@ -5,8 +5,23 @@ const { Option } = Select;
 import { changeRoleCapability } from '../actions/roles';
 
 class SelectFields extends PureComponent {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            roleUnderSave: null
+        };
+    }
+
     handleChange(capabilities, roleId) {
-        this.props.changeRoleCapability(roleId, capabilities);
+        this.setState({
+            roleUnderSave: roleId
+        });
+        this.props.changeRoleCapability(roleId, capabilities).then(r => {
+            this.setState({
+                roleUnderSave: null
+            });
+        });
     }
 
     getOptions(data) {
@@ -31,6 +46,7 @@ class SelectFields extends PureComponent {
                         <Row key={role.id} gutter={{ xs: 8, sm: 16, md: 24, lg: 38 }} style={{ marginTop: '10px' }}>
                             <Col span={8} lg={3} style={{ color: '#999', paddingTop: '5px' }}>
                                 {role.name}
+                                {this.state.roleUnderSave && role.id === this.state.roleUnderSave && <Spin style={{marginLeft: '10px' }} />}
                             </Col>
                             <Col lg={5}>
                                 <Select

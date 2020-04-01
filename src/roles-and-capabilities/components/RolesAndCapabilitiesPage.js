@@ -12,18 +12,11 @@ class RolesAndCapabilitiesPage extends Component {
 
     constructor(props) {
         super(props);
-
-        this.loadRoles = this.loadRoles.bind(this);
     }
 
     componentDidMount() {
-        this.loadRoles();
-        this.props.getCapabilities();
-
-    }
-
-    loadRoles() {
         this.props.getRoles();
+        this.props.getCapabilities();
     }
 
     render() {
@@ -38,12 +31,7 @@ class RolesAndCapabilitiesPage extends Component {
                                 <PageTitle title="Roles and Capabilities" />
                             </Col>
                         </Row>
-                        <SelectFields roles={this.props.roles} capabilities={this.props.capabilities} loadRoles={this.loadRoles} />
-                        <Row>
-                            <Col>
-                                <SaveBtn />
-                            </Col>
-                        </Row>
+                        <SelectFields roles={this.props.roles} capabilities={this.props.capabilities} />
                     </div>
                 </Content>
             </>
