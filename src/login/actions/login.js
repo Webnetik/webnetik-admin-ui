@@ -58,7 +58,8 @@ function validateUserToken(dispatch, token) {
             token
         }
     }).catch(error => {
-        logOut();
+        dispatch(doLogOut());
+        redirect('/login');
     });
 }
 
