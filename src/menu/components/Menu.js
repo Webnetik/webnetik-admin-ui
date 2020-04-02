@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux";
-import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
+import {Layout, Menu} from 'antd';
+import {history} from '../../store';
+
 const { SubMenu } = Menu;
-import { history } from '../../store';
 
 class MyMenu extends Component {
     constructor(props) {
@@ -29,18 +30,13 @@ class MyMenu extends Component {
             },
             {
                 key: 'projects',
-                name: 'Projects',
-                icon: <AppstoreOutlined />,
+                name: 'projects',
+                icon: <SettingOutlined />,
                 items: [
                     {
                         key: 'users2',
                         label: 'Users2',
                         to: '/users2'
-                    },
-                    {
-                        key: 'roles-capabilities2',
-                        label: 'Roles and capabilities2',
-                        to: '/'
                     }
                 ]
             }
@@ -50,11 +46,37 @@ class MyMenu extends Component {
 
         this.state = {
             openKeys: ['settings'],
+            activePage: null,
+            selectedMenuItems: null,
             menuItems
         }
     }
 
+    componentDidMount() {
+        this.findActiveMenu();
+    }
+
+    findActiveMenuItem(pathname) {
+        const { menuItems } = this.state;
+
+        return menuItems.map(item => {
+            return item.items.find(i => i.to === pathname);
+        }).filter(a => a);
+    }
+
+    findActiveMenu(to = this.props.router.location.pathname) {
+        const path = to;
+        const activeMenuItem = this.findActiveMenuItem(path)[0];
+
+        this.setState({
+            activePage: this.props.router.location.pathname,
+            selectedMenuItems: activeMenuItem.key
+        });
+    }
+
     onOpenChange(openKeys) {
+        console.log(openKeys);
+
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
 
         if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
@@ -67,12 +89,14 @@ class MyMenu extends Component {
     }
 
     changeRoute(to) {
+        this.findActiveMenu(to);
         history.push(to);
     }
 
     getMenu() {
         return(
             <Menu
+                selectedKeys={this.state.selectedMenuItems}
                 mode="inline"
                 openKeys={this.state.openKeys}
                 onOpenChange={(keys) => this.onOpenChange(keys)}>
@@ -132,7 +156,8 @@ class MyMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        token: state.login.token
+        token: state.login.token,
+        router: state.router
     }
 }
 
