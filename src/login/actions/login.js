@@ -1,5 +1,5 @@
 import { post } from 'axios';
-import { LOGIN_URL } from './urls';
+import { LOGIN_URL, VALIDATE_USER_URL } from './urls';
 import { SET_TOKEN } from './types';
 import { history } from '../../store';
 
@@ -36,11 +36,7 @@ export function authenticateUser(redirectTarget = '/login') {
         const token = localStorage.getItem("token");
 
         if (token !== null) {
-            dispatch(setToken(token));
-            return {
-                status: 'OK',
-                token
-            }
+            validateUserToken(dispatch, token);
         } else {
             redirect(redirectTarget);
             return {
@@ -48,7 +44,22 @@ export function authenticateUser(redirectTarget = '/login') {
             }
         }
     }
+}
 
+function validateUserToken(dispatch, token) {
+    post(VALIDATE_USER_URL,
+        {
+            token
+        }
+    ).then(re => {
+        dispatch(setToken(token));
+        return {
+            status: 'OK',
+            token
+        }
+    }).catch(error => {
+        logOut();
+    });
 }
 
 function redirect(target) {
