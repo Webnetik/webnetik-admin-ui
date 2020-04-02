@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 const { SubMenu } = Menu;
-
 import { history } from '../../store';
+import { logOut } from '../../login/actions/login';
 
 class MyMenu extends Component {
-
     constructor(props) {
         super(props);
 
@@ -55,6 +55,12 @@ class MyMenu extends Component {
         }
     }
 
+    /*shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log('nextProps: ', nextProps);
+        console.log('nextState: ', nextState);
+        return false;
+    }*/
+
     onOpenChange(openKeys) {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
 
@@ -71,12 +77,20 @@ class MyMenu extends Component {
         history.push(to);
     }
 
+    logOut() {
+        console.log("logout");
+        this.props.logOut();
+    }
+
     getMenu() {
         return(
             <Menu
                 mode="inline"
                 openKeys={this.state.openKeys}
                 onOpenChange={(keys) => this.onOpenChange(keys)}>
+                <Menu.Item key='logout' onClick={() => this.logOut()}>
+                    Log out
+                </Menu.Item>
                 {
                     this.state.menuItems.map((group, index) => {
                         return (
@@ -96,6 +110,7 @@ class MyMenu extends Component {
                                             </Menu.Item>
                                         )
                                     })
+
                                 }
                             </SubMenu>
                         )
@@ -109,25 +124,28 @@ class MyMenu extends Component {
         const { Sider } = Layout;
 
         return(
-                <Sider
-                    breakpoint="lg"
-                    collapsedWidth="0"
-                    onBreakpoint={broken => {
-                        //console.log(broken);
-                    }}
-                    onCollapse={(collapsed, type) => {
-                        //console.log(collapsed, type);
-                    }}
-                >
-                    <div className="logo" />
-                    {this.getMenu()}
-                </Sider>
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+                onBreakpoint={broken => {
+                    //console.log(broken);
+                }}
+                onCollapse={(collapsed, type) => {
+                    //console.log(collapsed, type);
+                }}
+            >
+                <div className="logo" />
+                {this.getMenu()}
+            </Sider>
         );
     }
-    
 };
 
-export default MyMenu;
+function mapStateToProps(state) {
+    return {
+        token: state.login.token
+    }
+}
 
-
+export default connect(mapStateToProps, { logOut })(MyMenu);
 
