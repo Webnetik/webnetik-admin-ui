@@ -4,7 +4,6 @@ import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 const { SubMenu } = Menu;
 import { history } from '../../store';
-import { logOut } from '../../login/actions/login';
 
 class MyMenu extends Component {
     constructor(props) {
@@ -55,12 +54,6 @@ class MyMenu extends Component {
         }
     }
 
-    /*shouldComponentUpdate(nextProps, nextState, nextContext) {
-        console.log('nextProps: ', nextProps);
-        console.log('nextState: ', nextState);
-        return false;
-    }*/
-
     onOpenChange(openKeys) {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
 
@@ -77,19 +70,15 @@ class MyMenu extends Component {
         history.push(to);
     }
 
-    logOut() {
-        console.log("logout");
-        this.props.logOut();
-    }
-
     getMenu() {
         return(
             <Menu
                 mode="inline"
                 openKeys={this.state.openKeys}
                 onOpenChange={(keys) => this.onOpenChange(keys)}>
-                <Menu.Item key='logout' onClick={() => this.logOut()}>
-                    Log out
+                <Menu.Item key='0-site'>
+                      <AppstoreOutlined />
+                      <span>Go website</span>
                 </Menu.Item>
                 {
                     this.state.menuItems.map((group, index) => {
@@ -147,5 +136,5 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { logOut })(MyMenu);
+export default connect(mapStateToProps, { })(MyMenu);
 

@@ -8,6 +8,7 @@ import MyMenu from "./menu/components/Menu";
 import LoginPage from "./login/components/LoginPage";
 import Authenticate from "./login/HOC/Authenticate";
 import WithoutAuthenticate from "./login/HOC/WithoutAuthenticate";
+import TopMenu from "./menu/components/TopMenu";
 
 export default class App extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class App extends Component {
                     <Route path='/' component={Authenticate(MyMenu)} />
                 </Switch>
                 <Layout>
+                    <Route path='/' component={Authenticate(TopMenu)} />
                     <Switch>
                         <Route path='/' exact={true} component={Authenticate(RolesAndCapabilitiesPage)} />
                         <Route path='/roles-and-capabilities' component={Authenticate(RolesAndCapabilitiesPage)} />

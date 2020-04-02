@@ -15,15 +15,11 @@ class UsersPage extends Component {
     render() {
         return (
             <>
-                <Header className="site-layout-sub-header-background" style={{ height: '30px', padding: 0, paddingTop: '13px', paddingBottom: '12px', lineHeight: '18px', paddingLeft: '20px' }}>
+                <Header className="site-layout-sub-header-background">
+                    <PageTitle title="Users" />
                 </Header>
                 <Content>
-                    <div className="site-layout-background" style={{ paddingTop: '20px', paddingLeft: "20px", minHeight: 360 }}>
-                        <Row>
-                            <Col>
-                                <PageTitle title="Users" />
-                            </Col>
-                        </Row>
+                    <div className="site-layout-background">
                         <Row >
                             <Col>
                                 <UsersTable />

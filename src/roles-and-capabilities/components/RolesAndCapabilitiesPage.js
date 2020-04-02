@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Col, Layout, Row, Spin} from 'antd';
+import {Col, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
 import SelectFields from "./SelectFields";
-import SaveBtn from "./SaveBtn";
 import { getRoles, getCapabilities } from '../actions/index';
+import TopMenu from "../../menu/components/TopMenu";
 
 const { Header, Content } = Layout;
 
@@ -22,15 +22,11 @@ class RolesAndCapabilitiesPage extends Component {
     render() {
         return (
             <>
-                <Header className="site-layout-sub-header-background" style={{ height: '30px', padding: 0, paddingTop: '13px', paddingBottom: '12px', lineHeight: '18px', paddingLeft: '20px' }}>
+                <Header className="site-layout-sub-header-background">
+                    <PageTitle title="Roles and Capabilities" />
                 </Header>
                 <Content>
-                    <div className="site-layout-background" style={{ paddingTop: '30px', paddingLeft: "20px", minHeight: 360 }}>
-                        <Row>
-                            <Col>
-                                <PageTitle title="Roles and Capabilities" />
-                            </Col>
-                        </Row>
+                    <div className="site-layout-background">
                         <SelectFields roles={this.props.roles} capabilities={this.props.capabilities} />
                     </div>
                 </Content>
