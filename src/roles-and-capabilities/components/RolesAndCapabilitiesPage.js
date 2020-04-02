@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Col, Layout, Row, Spin} from 'antd';
-import PageTitle from '../../content/components/PageTitle';
+import PageTitle from '../../common/components/PageTitle';
 import SelectFields from "./SelectFields";
 import SaveBtn from "./SaveBtn";
 import { getRoles, getCapabilities } from '../actions/index';

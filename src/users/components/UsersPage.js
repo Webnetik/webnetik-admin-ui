@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Col, Layout, Row} from 'antd';
-import PageTitle from '../../content/components/PageTitle';
+import PageTitle from '../../common/components/PageTitle';
 import UsersTable from './UsersTable';
 import FormSizeDemo from './AddUserForm';
 
