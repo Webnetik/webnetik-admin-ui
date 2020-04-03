@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
 import {history} from '../../store';
+import { setOpenedMenuGroups } from '../actions/index';
 
 const { SubMenu } = Menu;
 
@@ -34,9 +35,9 @@ class MyMenu extends Component {
                 icon: <SettingOutlined />,
                 items: [
                     {
-                        key: 'users2',
-                        label: 'Users2',
-                        to: '/users2'
+                        key: 'projects-1',
+                        label: 'Projects',
+                        to: '/projects'
                     }
                 ]
             }
@@ -45,15 +46,15 @@ class MyMenu extends Component {
         this.rootSubmenuKeys = menuItems.map(group => group.key);
 
         this.state = {
-            openKeys: ['settings'],
             activePage: null,
+
             selectedMenuItems: null,
             menuItems
         }
     }
 
     componentDidMount() {
-        this.findActiveMenu();
+        this.setActiveMenu();
     }
 
     findActiveMenuItem(pathname) {
@@ -64,73 +65,69 @@ class MyMenu extends Component {
         }).filter(a => a);
     }
 
-    findActiveMenu(to = this.props.router.location.pathname) {
+    setActiveMenu(to = this.props.router.location.pathname) {
         const path = to;
         const activeMenuItem = this.findActiveMenuItem(path)[0];
 
-        this.setState({
-            activePage: this.props.router.location.pathname,
-            selectedMenuItems: activeMenuItem.key
-        });
-    }
-
-    onOpenChange(openKeys) {
-        console.log(openKeys);
-
-        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-
-        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-            this.setState({ openKeys });
-        } else {
+        if(activeMenuItem) {
             this.setState({
-                openKeys: latestOpenKey ? [latestOpenKey] : [],
+                activePage: this.props.router.location.pathname,
+                selectedMenuItems: activeMenuItem.key
             });
         }
     }
 
+    onOpenChange(openKeys) {
+        this.props.setOpenedMenuGroups(openKeys);
+    }
+
     changeRoute(to) {
-        this.findActiveMenu(to);
+        this.setActiveMenu(to);
         history.push(to);
     }
 
     getMenu() {
-        return(
-            <Menu
-                selectedKeys={this.state.selectedMenuItems}
-                mode="inline"
-                openKeys={this.state.openKeys}
-                onOpenChange={(keys) => this.onOpenChange(keys)}>
-                <Menu.Item key='0-site'>
-                      <AppstoreOutlined />
-                      <span>Go website</span>
-                </Menu.Item>
-                {
-                    this.state.menuItems.map((group, index) => {
-                        return (
-                            <SubMenu
-                                key={group.key}
-                                title={
-                                    <span>
+        if(!!this.props.menu) {
+            return(
+                <Menu
+                    selectedKeys={this.state.selectedMenuItems}
+                    mode="inline"
+                    openKeys={this.props.menu.openedMenus}
+                    onOpenChange={(keys) => this.onOpenChange(keys)}>
+                    <Menu.Item key='0-site'>
+                        <AppstoreOutlined />
+                        <span>Go website</span>
+                    </Menu.Item>
+                    {
+                        this.state.menuItems.map((group, index) => {
+                            return (
+                                <SubMenu
+                                    key={group.key}
+                                    title={
+                                        <span>
                                         {group.icon}
-                                        <span>{group.name}</span>
+                                            <span>{group.name}</span>
                                     </span>
-                                }>
-                                {
-                                    group.items.map((item, index2) => {
-                                        return (
-                                            <Menu.Item key={item.key} onClick={() => this.changeRoute(item.to)}>
-                                               {item.label}
-                                            </Menu.Item>
-                                        )
-                                    })
+                                    }>
+                                    {
+                                        group.items.map((item, index2) => {
+                                            return (
+                                                <Menu.Item key={item.key} onClick={() => this.changeRoute(item.to)}>
+                                                    {item.label}
+                                                </Menu.Item>
+                                            )
+                                        })
 
-                                }
-                            </SubMenu>
-                        )
-                    })
-                }
-            </Menu>
-        );
+                                    }
+                                </SubMenu>
+                            )
+                        })
+                    }
+                </Menu>
+            );
+        } else {
+            return null;
+        }
     }
 
     render() {
@@ -157,9 +154,10 @@ class MyMenu extends Component {
 function mapStateToProps(state) {
     return {
         token: state.login.token,
-        router: state.router
+        router: state.router,
+        menu: state.menus
     }
 }
 
-export default connect(mapStateToProps, { })(MyMenu);
+export default connect(mapStateToProps, { setOpenedMenuGroups })(MyMenu);
 

@@ -1,0 +1,1 @@
+export const SET_OPENED_MENUS = 'SET_OPENED_MENUS';
