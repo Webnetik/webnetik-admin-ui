@@ -1,0 +1,1 @@
+export const GET_PROFILE_URL = 'http://localhost:3002/users/profile';

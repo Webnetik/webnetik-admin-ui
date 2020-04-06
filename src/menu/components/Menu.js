@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {AppstoreOutlined, SettingOutlined} from '@ant-design/icons';
+import {AppstoreOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
 import {Layout, Menu} from 'antd';
 import {history} from '../../store';
 import { setOpenedMenuGroups } from '../actions/index';
@@ -30,14 +30,14 @@ class MyMenu extends Component {
                 ]
             },
             {
-                key: 'projects',
-                name: 'projects',
-                icon: <SettingOutlined />,
+                key: 'profile',
+                name: 'Profile',
+                icon: <UserOutlined />,
                 items: [
                     {
-                        key: 'projects-1',
-                        label: 'Projects',
-                        to: '/projects'
+                        key: 'my-profile',
+                        label: 'My profile',
+                        to: '/my-profile'
                     }
                 ]
             }
