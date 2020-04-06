@@ -3,13 +3,21 @@ import { CHANGE_ROLE_CAPABILITIES_URL, CREATE_ROLE_URL } from './urls';
 import { CHANGE_ROLE_CAPABILITIES, LOAD_NEW_ROLE } from "./types";
 
 export function changeRoleCapability(roleId, capabilities) {
-    return async dispatch => {
+    return async (dispatch, state) => {
+        const token = state().login.token;
+
         const data = {
             roleId: roleId,
             capabilities: capabilities
         };
 
-        return post(CHANGE_ROLE_CAPABILITIES_URL, data).then(response => {
+        return post(CHANGE_ROLE_CAPABILITIES_URL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(response => {
             dispatch(changeRoleCapabilities(response.data.result));
         }).catch(error => {
             return error;
@@ -25,12 +33,20 @@ function changeRoleCapabilities(roleWithCapabilities) {
 }
 
 export function createRole(roleName) {
-    return async dispatch => {
+    return async (dispatch, state) => {
+        const token = state().login.token;
+
         const data = {
             roleName
         };
 
-        return post(CREATE_ROLE_URL, data).then(response => {
+        return post(CREATE_ROLE_URL,
+            data,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(response => {
             dispatch(loadNewRole(response.data.result));
         }).catch(error => {
             return error;
