@@ -26,13 +26,7 @@ export default function (state = initialState, action) {
             const roles = state.roles;
             roles.push(newRole);
 
-            console.log('roles: ', roles);
-
-            const n = {...state, roles: roles};
-
-            console.log('n: ', n);
-
-            return n;
+            return {...state, roles: roles};
         }
         default:
             return state;

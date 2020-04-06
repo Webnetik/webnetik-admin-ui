@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {Col, Row, Select, Spin} from 'antd';
 const { Option } = Select;
 import { changeRoleCapability } from '../actions/roles';
 
-class SelectFields extends PureComponent {
+class SelectFields extends Component {
     constructor(props) {
         super(props);
 
@@ -33,13 +33,19 @@ class SelectFields extends PureComponent {
     }
 
     getRoleCapabilities(role) {
-        return role.capabilities.map(capability => capability.name);
+        if(!!role.capabilities) {
+            return role.capabilities.map(capability => capability.name);
+        } else {
+            return [];
+        }
     }
 
     render() {
-        if(this.props.roles && this.props.capabilities) {
+        if(this.props.roles &&  this.props.roles.roles &&  this.props.capabilities) {
+            const roles = this.props.roles.roles;
+
             return(
-                this.props.roles.map(role => {
+                roles.map(role => {
                     const roleCapabilities = this.getRoleCapabilities(role);
 
                     return (
@@ -70,7 +76,7 @@ class SelectFields extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        roles: state.roles.roles
+        roles: state.roles
     }
 };
 
