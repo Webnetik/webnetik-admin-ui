@@ -70,7 +70,7 @@ class SelectFields extends PureComponent {
 
 const mapStateToProps = state => {
     return {
-        roles2: state.roles.roles
+        roles: state.roles.roles
     }
 };
 

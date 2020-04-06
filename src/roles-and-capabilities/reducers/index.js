@@ -1,4 +1,4 @@
-import { GET_ROLES, GET_CAPABILITIES, CHANGE_ROLE_CAPABILITIES } from "../actions/types";
+import {GET_ROLES, GET_CAPABILITIES, CHANGE_ROLE_CAPABILITIES, LOAD_NEW_ROLE} from "../actions/types";
 
 const initialState = {
     roles: null,
@@ -20,6 +20,19 @@ export default function (state = initialState, action) {
             const indexOfRole = roles.indexOf(role);
             roles[indexOfRole].capabilities = capabilities;
             return { ...state };
+        }
+        case LOAD_NEW_ROLE: {
+            const newRole =  action.payload;
+            const roles = state.roles;
+            roles.push(newRole);
+
+            console.log('roles: ', roles);
+
+            const n = {...state, roles: roles};
+
+            console.log('n: ', n);
+
+            return n;
         }
         default:
             return state;

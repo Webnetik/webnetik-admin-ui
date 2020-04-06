@@ -4,7 +4,7 @@ import {Col, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
 import SelectFields from "./SelectFields";
 import { getRoles, getCapabilities } from '../actions/index';
-import TopMenu from "../../menu/components/TopMenu";
+import AddRoleForm from "./AddRoleForm";
 
 const { Header, Content } = Layout;
 
@@ -27,7 +27,12 @@ class RolesAndCapabilitiesPage extends Component {
                 </Header>
                 <Content>
                     <div className="site-layout-background">
-                        <SelectFields roles={this.props.roles} capabilities={this.props.capabilities} />
+                        <SelectFields capabilities={this.props.capabilities} />
+                        <Row style={{ marginTop: '40px' }}>
+                            <Col span={12}>
+                                <AddRoleForm />
+                            </Col>
+                        </Row>
                     </div>
                 </Content>
             </>
