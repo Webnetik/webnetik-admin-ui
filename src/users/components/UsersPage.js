@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Col, Layout, Row} from 'antd';
+import {Button, Col, Drawer, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
 import UsersTable from './UsersTable';
-import FormSizeDemo from './AddUserForm';
+import UserForm from './UserForm';
+import FormDrawer from "./FormDrawer";
 
 const { Header, Content } = Layout;
 
@@ -10,6 +11,22 @@ class UsersPage extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            formDrawerVisible: false
+        }
+    }
+
+    openFormDrawer() {
+        this.setState({
+            formDrawerVisible: !this.state.formDrawerVisible
+        });
+    }
+
+    closeDrawer() {
+        this.setState({
+            formDrawerVisible: false
+        });
     }
 
     render() {
@@ -20,14 +37,18 @@ class UsersPage extends Component {
                 </Header>
                 <Content>
                     <div className="site-layout-background">
-                        <Row >
+                        <Row>
                             <Col>
-                                <UsersTable />
+                                <UsersTable onEditUser={() => this.openFormDrawer()} />
                             </Col>
                         </Row>
-                        <Row >
+                        <Row>
                             <Col>
-                                <FormSizeDemo />
+                                <FormDrawer title='Edit user'
+                                            visible={this.state.formDrawerVisible}
+                                            closeDrawer={() => this.closeDrawer()}>
+                                    <UserForm onClick={() => this.closeDrawer()} />
+                                </FormDrawer>
                             </Col>
                         </Row>
                     </div>

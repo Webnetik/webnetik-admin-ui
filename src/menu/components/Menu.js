@@ -13,6 +13,18 @@ class MyMenu extends Component {
 
         const menuItems = [
             {
+                key: 'courses',
+                name: 'Courses',
+                icon: <UserOutlined />,
+                items: [
+                    {
+                        key: 'all-courses',
+                        label: 'Courses',
+                        to: '/courses'
+                    }
+                ]
+            },
+            {
                 key: 'settings',
                 name: 'Settings',
                 icon: <SettingOutlined />,
