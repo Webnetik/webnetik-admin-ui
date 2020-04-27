@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import {Form, Input, Button, Col, Select} from 'antd';
-import { saveCourse } from '../actions/index';
+import React from 'react';
+import { Form, Input, Button } from 'antd';
+import { saveCourse, loadNewCourse } from '../actions/index';
+import {useDispatch, useSelector} from "react-redux";
 
 function CourseForm() {
-    const [title, description] = useState('');
+    const dispatch = useDispatch();
 
     const layout = {
         labelCol: { span: 8 },
@@ -15,7 +16,8 @@ function CourseForm() {
     };
 
     const onFinish = async (values) => {
-        await saveCourse(values.title, values.description);
+        const newCourse = await saveCourse(values.title, values.description);
+        dispatch(loadNewCourse(newCourse));
     };
 
     const onFinishFailed = () => {

@@ -1,20 +1,19 @@
-import {GET_USERS, RESET_USER_FORM, SET_USER_FORM} from "../actions/types";
+import {ADD_COURSE, GET_ALL_COURSES} from "../actions/types";
+import { merge } from 'lodash';
 
 const initialState = {
-    users: null,
-    userForm: null
+    courses: null
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case GET_USERS: {
-            return { ...state, users: action.payload };
+        case GET_ALL_COURSES: {
+            return { ...state, courses: action.payload };
         }
-        case RESET_USER_FORM: {
-            return { ...state, userForm: null };
-        }
-        case SET_USER_FORM: {
-            return { ...state, userForm: action.payload };
+        case ADD_COURSE: {
+            let newState = merge({}, state);
+            newState.courses.unshift(action.payload);
+            return newState;
         }
         default:
             return state;

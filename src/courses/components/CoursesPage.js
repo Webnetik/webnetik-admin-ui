@@ -12,9 +12,9 @@ function CoursesPage() {
 
     useEffect(() => {
         const getCourses = async () => {
-            setLoading(true);
-            setCourses(await loadCourses());
-            setLoading(false);
+            //setLoading(true);
+            //setCourses(await loadCourses());
+            //setLoading(false);
         };
         getCourses();
     }, []);
@@ -28,7 +28,7 @@ function CoursesPage() {
                 <div className="site-layout-background">
                     <Row>
                         <Col>
-                            <CoursesTable data={courses} />
+                            <CoursesTable />
                         </Col>
                     </Row>
                     <Row>

@@ -5,6 +5,7 @@ import rolesReducer from './roles-and-capabilities/reducers/index';
 import loginReducer from './login/reducers/login';
 import menuReducer from './menu/reducers/index';
 import profileReducer from './profile/reducers/index';
+import coursesReducer from './courses/reducers/index';
 
 export default (history) => combineReducers({
     router: connectRouter(history),
@@ -12,5 +13,6 @@ export default (history) => combineReducers({
     roles: rolesReducer,
     login: loginReducer,
     menus: menuReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    courses: coursesReducer
 });

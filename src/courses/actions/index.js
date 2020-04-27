@@ -1,19 +1,30 @@
 import {get, post} from 'axios';
+import {ADD_COURSE_URL, GET_COURSES_URL} from "./urls";
+import {ADD_COURSE, GET_ALL_COURSES} from "./types";
 
 export async function loadCourses() {
-    const { data } = await get("http://localhost:3002/courses/all");
-    return Promise.resolve(data.courses);
+    const response = await get(GET_COURSES_URL);
+    return {
+        type: GET_ALL_COURSES,
+        payload: response.data.courses
+    };
 }
 
 export async function saveCourse(title, description) {
-    const url = "http://localhost:3002/courses/add";
     const data = {
         title: title,
         description: description
     };
-    const { responseData } = await post(
-        url,
+    const response = await post(
+        ADD_COURSE_URL,
         data
     );
-    return Promise.resolve(responseData);
+    return response.data.course;
+}
+
+export function loadNewCourse(course) {
+    return {
+        type: ADD_COURSE,
+        payload: course
+    }
 }

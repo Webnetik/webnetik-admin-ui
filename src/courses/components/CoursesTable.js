@@ -1,7 +1,12 @@
-import React from 'react';
-import {Table, Col} from 'antd';
+import React, {useEffect} from 'react';
+import { Table } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import { loadCourses } from '../actions/index';
 
 function CoursesTable({ data }) {
+    const courses = useSelector(state => state.courses);
+    const dispatch = useDispatch();
+
     const columns = [
         {
             title: 'ID',
@@ -29,14 +34,19 @@ function CoursesTable({ data }) {
         },
     ];
 
+    useEffect(() => {
+        async function getCourses() {
+            dispatch(await loadCourses());
+        }
+        getCourses();
+    }, []);
+
     const edit = (record) => {
         console.log(record);
+        console.log(courses);
     };
 
-    return (
-        data &&
-        <Table dataSource={data} columns={columns} rowKey='id'  />
-    );
+    return <Table dataSource={courses.courses} columns={columns} rowKey='id' />
 };
 
 export default CoursesTable;
