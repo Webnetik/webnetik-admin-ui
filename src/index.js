@@ -5,7 +5,7 @@ import {ConnectedRouter} from 'connected-react-router';
 import store, {history} from './store';
 
 import 'antd/dist/antd.css';
-import '../style/basic.scss';
+import '../assets/style/basic.scss';
 
 import App from './app';
 

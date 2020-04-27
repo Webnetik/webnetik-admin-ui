@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const common = require('./webpack.common');
+const common = require('./common');
 
 module.exports = merge(common, {
     mode: 'development',
@@ -11,9 +11,6 @@ module.exports = merge(common, {
         watchContentBase: true
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development')
-        })
+        new webpack.HotModuleReplacementPlugin()
     ]
 });
