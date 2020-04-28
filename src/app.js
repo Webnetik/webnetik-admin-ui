@@ -11,6 +11,7 @@ import WithoutAuthenticate from "./login/HOC/WithoutAuthenticate";
 import TopMenu from "./menu/components/TopMenu";
 import ProfilePage from "./profile/components/ProfilePage";
 import CoursesPage from "./courses/components/CoursesPage";
+import AddNewCoursePage from "./courses/components/AddNewCoursePage";
 
 export default class App extends Component {
     render() {
@@ -27,6 +28,7 @@ export default class App extends Component {
                         <Route path='/users' component={Authenticate(UsersPage)} />
                         <Route path='/my-profile' component={Authenticate(ProfilePage)} />
                         <Route path='/login' exact={true} component={WithoutAuthenticate(LoginPage)} />
+                        <Route path='/courses/add-course' component={Authenticate(AddNewCoursePage)} />
                         <Route path='/courses' component={Authenticate(CoursesPage)} />
                     </Switch>
                 </Layout>

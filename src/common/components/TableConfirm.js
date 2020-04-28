@@ -2,7 +2,7 @@ import React from 'react';
 import { Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
-const Confirm = ({onConfirm, id}) => {
+function Confirm({onConfirm, id}) {
     return (
         <Popconfirm
             onConfirm={() => onConfirm(id)}

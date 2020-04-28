@@ -3,6 +3,8 @@ import { Form, Input, Button } from 'antd';
 import { saveCourse, loadNewCourse } from '../actions/index';
 import {useDispatch, useSelector} from "react-redux";
 
+const { TextArea } = Input;
+
 function CourseForm() {
     const dispatch = useDispatch();
 
@@ -28,6 +30,7 @@ function CourseForm() {
         <Form
             {...layout}
             name="basic"
+            className="ant-advanced-search-form"
             initialValues={{ title: '', description: '' }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
@@ -43,7 +46,7 @@ function CourseForm() {
                 label="Description"
                 name="description"
             >
-                <Input />
+                <TextArea />
             </Form.Item>
 
             <Form.Item {...tailLayout}>

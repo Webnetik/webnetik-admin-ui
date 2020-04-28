@@ -3,6 +3,7 @@ import { Table } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { loadCourses, deleteCourse } from '../actions/index';
 import Confirm from "../../common/components/TableConfirm";
+import openNotification from "../../common/components/Notification";
 
 function CoursesTable({ data }) {
     const courses = useSelector(state => state.courses);
@@ -49,7 +50,9 @@ function CoursesTable({ data }) {
     };
 
     const deleteRow = async (id) => {
-        dispatch(await deleteCourse(id));
+        const courseDelete = await deleteCourse(id);
+        dispatch(courseDelete);
+        openNotification({ title: 'Course deleted', message: `Deleted course with id: '${id}'` });
     };
 
     return <Table dataSource={courses.courses} columns={columns} rowKey='id' />

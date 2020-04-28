@@ -6,7 +6,6 @@ export function getUsers() {
     console.log('action');
 
     return async (dispatch, state) => {
-        console.log(dispatch, state);
         const token = state().login.token;
 
         const result = await get(GET_USERS_URL, {

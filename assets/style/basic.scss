@@ -5,6 +5,19 @@
 
 //@import "~bootstrap/scss/bootstrap.scss";
 
+textarea {
+  resize: none;
+}
+
+.ant-advanced-search-form,
+.ant-advanced-search-form {
+  padding: 24px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+}
+
+
 .site-layout-background {
   padding-left: 8px !important;
   padding-right: 8px !important;
