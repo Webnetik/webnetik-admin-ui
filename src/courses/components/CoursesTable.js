@@ -28,7 +28,8 @@ function CoursesTable({ data }) {
             key: 'action',
             render: (text, record) => (
                 <span>
-                    <a onClick={() => edit(record)}>Edit</a>
+                    <a style={{ marginRight: 16 }} onClick={() => edit(record)}>Edit</a>
+                    <a>Delete</a>
                 </span>
             ),
         },

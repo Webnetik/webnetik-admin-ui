@@ -27,7 +27,7 @@ function CoursesPage() {
             <Content>
                 <div className="site-layout-background">
                     <Row>
-                        <Col>
+                        <Col span={24}>
                             <CoursesTable />
                         </Col>
                     </Row>
