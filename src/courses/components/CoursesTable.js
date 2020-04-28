@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadCourses, deleteCourse } from '../actions/index';
 import Confirm from "../../common/components/TableConfirm";
 import openNotification from "../../common/components/Notification";
+import {useHistory} from "react-router";
 
 function CoursesTable({ data }) {
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
+    let history = useHistory();
 
     const columns = [
         {
@@ -45,8 +47,7 @@ function CoursesTable({ data }) {
     }, []);
 
     const editRow = (record) => {
-        console.log(record);
-        console.log(courses);
+        history.push(`/courses/edit-course/${record.id}`);
     };
 
     const deleteRow = async (id) => {

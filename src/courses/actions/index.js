@@ -1,6 +1,6 @@
 import {get, post} from 'axios';
-import {ADD_COURSE_URL, GET_COURSES_URL, DELETE_COURSE_URL} from "./urls";
-import {ADD_COURSE, DELETE_COURSE, GET_ALL_COURSES} from "./types";
+import {ADD_COURSE_URL, GET_COURSES_URL, DELETE_COURSE_URL, MODIFY_COURSE_URL} from "./urls";
+import {ADD_COURSE, DELETE_COURSE, GET_ALL_COURSES, MODIFY_COURSE} from "./types";
 
 export async function loadCourses() {
     const response = await get(GET_COURSES_URL);
@@ -42,4 +42,16 @@ export async function deleteCourse(id) {
         type: DELETE_COURSE,
         payload: response.data.courseId
     };
+}
+
+export async function modifyCourse(course) {
+    const data = {
+        course
+    };
+    const response = await post(
+        MODIFY_COURSE_URL,
+        data
+    );
+
+    return response.data.modifiedCourse;
 }

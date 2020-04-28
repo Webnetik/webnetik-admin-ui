@@ -29,6 +29,7 @@ export default class App extends Component {
                         <Route path='/my-profile' component={Authenticate(ProfilePage)} />
                         <Route path='/login' exact={true} component={WithoutAuthenticate(LoginPage)} />
                         <Route path='/courses/add-course' component={Authenticate(AddNewCoursePage)} />
+                        <Route path='/courses/edit-course/:id' component={Authenticate(AddNewCoursePage)} />
                         <Route path='/courses' component={Authenticate(CoursesPage)} />
                     </Switch>
                 </Layout>

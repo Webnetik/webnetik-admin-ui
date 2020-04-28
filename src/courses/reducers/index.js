@@ -1,4 +1,4 @@
-import {ADD_COURSE, DELETE_COURSE, GET_ALL_COURSES} from "../actions/types";
+import {ADD_COURSE, DELETE_COURSE, GET_ALL_COURSES, MODIFY_COURSE} from "../actions/types";
 import { merge } from 'lodash';
 
 const initialState = {
