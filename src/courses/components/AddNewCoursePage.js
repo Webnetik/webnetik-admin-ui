@@ -8,7 +8,8 @@ import {useSelector} from "react-redux";
 
 function AddNewCoursePage() {
     let { id } = useParams();
-    const [ course, setCourse ] = useState(null);
+    const [ course, setCourse,  ] = useState(null);
+    const [ title, setTitle ] = useState(null);
     const courses = useSelector(state => state.courses.courses);
     const { Header, Content } = Layout;
 
@@ -16,15 +17,17 @@ function AddNewCoursePage() {
         if(!!id) {
             const course = courses.filter(course => course.id === Number.parseInt(id))[0];
             setCourse({id, ...course});
+            setTitle('Edit course');
         } else {
             setCourse(false);
+            setTitle('Add new course');
         }
     }, []);
 
     return (
         <>
             <Header className="site-layout-sub-header-background">
-                <PageTitle title="Users" />
+                { title && <PageTitle title={title} /> }
             </Header>
             <Content>
                 <div className="site-layout-background">

@@ -5,7 +5,7 @@ function openNotification({ title, message }) {
     notification.open({
         message: title,
         description: message,
-        duration: 1
+        duration: 2
     });
 };
 

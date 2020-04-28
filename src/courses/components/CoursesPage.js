@@ -23,7 +23,7 @@ function CoursesPage() {
     return (
         <>
             <Header className="site-layout-sub-header-background">
-                <PageTitle title="Users" />
+                <PageTitle title="Courses" />
             </Header>
             <Content>
                 <div className="site-layout-background">
