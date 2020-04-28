@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import { Table } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
-import { loadCourses } from '../actions/index';
+import { loadCourses, deleteCourse } from '../actions/index';
+import Confirm from "../../common/components/TableConfirm";
 
 function CoursesTable({ data }) {
     const courses = useSelector(state => state.courses);
@@ -28,8 +29,8 @@ function CoursesTable({ data }) {
             key: 'action',
             render: (text, record) => (
                 <span>
-                    <a style={{ marginRight: 16 }} onClick={() => edit(record)}>Edit</a>
-                    <a>Delete</a>
+                    <a style={{ marginRight: 16 }} onClick={() => editRow(record)}>Edit</a>
+                    <Confirm id={record.id} onConfirm={deleteRow} />
                 </span>
             ),
         },
@@ -42,9 +43,13 @@ function CoursesTable({ data }) {
         getCourses();
     }, []);
 
-    const edit = (record) => {
+    const editRow = (record) => {
         console.log(record);
         console.log(courses);
+    };
+
+    const deleteRow = async (id) => {
+        dispatch(await deleteCourse(id));
     };
 
     return <Table dataSource={courses.courses} columns={columns} rowKey='id' />
