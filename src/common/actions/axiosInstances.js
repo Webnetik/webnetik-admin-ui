@@ -1,36 +1,44 @@
-/*import axios from 'axios';
-import {authenticateUserToken} from "./validateAuthenticatedUser";
+import axios from 'axios';
+import authenticateUser from "./validateAuthenticatedUser";
 
 export const publicInstance = axios.create();
 
 publicInstance.interceptors.request.use((config) => {
-    console.log('public instance interceptor');
-    config.foo = 456;
+    return config;
 });
 
-export const authenticatedInstance = axios.create();*/
+export const authenticatedInstance = axios.create();
 
-/*
-, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }
-* */
+authenticatedInstance.interceptors.request.use(async (config) => {
+    const token = localStorage.getItem('token');
 
-/*authenticatedInstance.interceptors.request.use(function(config) {
-    // const token = await authenticateUserToken();
-    // console.log('private instance interceptor: ', token);
-    console.log('request => config ====================================');
-    console.log(config);
-    console.log('request => config ====================================');
+    const data = {
+        token: token
+    };
 
-    // if u add new Chainable promise or other interceptor
-    // You have to return `config` inside of a rquest
-    // otherwise u will get a very confusing error
-    // and spend sometime to debug it.
+    const result = await authenticateUser();
+
+    if(!!result) {
+       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+        throw new Error('Token expired');
+    }
+
     return config;
-}, function(error) {
-    return Promise.reject(error);
-});*/
+});
 
+const errorHandler = (error) => {
+    console.log('authenticatedInstance: ', error);
+};
+
+const errorHandler2 = (error) => {
+    console.log('publicInstance: ', error);
+};
+
+authenticatedInstance.interceptors.request.use(
+    error => errorHandler(error)
+);
+
+publicInstance.interceptors.request.use(
+    error => errorHandler2(error)
+);

@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
-import {Button, Col, Drawer, Layout, Row} from 'antd';
+import React from 'react';
+import {Button, Col, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
-import UsersTable from './UsersTable';
-import UserForm from './UserForm';
-import FormDrawer from "./FormDrawer";
-
-const { Header, Content } = Layout;
+import {Link} from "react-router-dom";
 
 function UsersPage() {
-    const [formDrawerVisible, setFormDrawerVisible] = useState(null);
-
-    const openFormDrawer = () => {
-        setFormDrawerVisible(!formDrawerVisible);
-    };
-
-    const closeDrawer = () => {
-        setFormDrawerVisible(false);
-    };
+    const { Header, Content } = Layout;
 
     return (
         <>
@@ -26,17 +14,13 @@ function UsersPage() {
             <Content>
                 <div className="site-layout-background">
                     <Row>
-                        <Col>
-                            <UsersTable onEditUser={() => openFormDrawer()} />
+                        <Col span={24} style={{ paddingBottom: '20px' }}>
+                            <Button type="primary"><Link to='/users/add-user'>Add user</Link></Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <FormDrawer title='Edit user'
-                                        visible={formDrawerVisible}
-                                        closeDrawer={() => closeDrawer()}>
-                                <UserForm onClick={() => closeDrawer()} />
-                            </FormDrawer>
+                            fsdf
                         </Col>
                     </Row>
                 </div>

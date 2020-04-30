@@ -2,29 +2,19 @@ import { get } from 'axios';
 import { GET_ROLES_URL, GET_CAPABILITIES_URL } from './urls';
 import { GET_ROLES, GET_CAPABILITIES } from './types';
 
-export function getRoles() {
-    return async (dispatch, state) => {
-        const token = state().login.token;
+import { authenticatedInstance } from '../../common/actions/axiosInstances';
 
-        const result = await get(GET_ROLES_URL, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+export function getRoles() {
+    return async dispatch => {
+        const result = await authenticatedInstance.get(GET_ROLES_URL);
 
         dispatch(loadRoles([...result.data.roles]));
     }
 }
 
 export function getCapabilities() {
-    return async (dispatch, state) => {
-        const token = state().login.token;
-
-        const result = await get(GET_CAPABILITIES_URL, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
+    return async dispatch => {
+        const result = await authenticatedInstance.get(GET_CAPABILITIES_URL);
 
         dispatch({
             type: GET_CAPABILITIES,

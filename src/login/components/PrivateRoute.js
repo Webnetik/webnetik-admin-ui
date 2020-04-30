@@ -23,17 +23,15 @@ function PrivateRoute({ component: Component, ...rest }) {
         authenticate();
     }, []);
 
-    console.log(authenticated);
-
     if(authenticated !== null) {
         let route = null;
-        if(authenticated && authenticated !== 'Token expired') {
+        if(!authenticated || authenticated === 'Token expired') {
             route = <Route {...rest} render={props => {
-                return <Component {...props} />;
+                return <Redirect to='/login' />
             }} />;
         } else {
             route = <Route {...rest} render={props => {
-                return <Redirect to='/login' />
+                return <Component {...props} />;
             }} />;
         }
         return route;

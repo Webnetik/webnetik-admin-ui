@@ -11,6 +11,7 @@ import ProfilePage from "./profile/components/ProfilePage";
 import CoursesPage from "./courses/components/CoursesPage";
 import AddNewCoursePage from "./courses/components/AddNewCoursePage";
 import PrivateRoute, {LoginRoute} from "./login/components/PrivateRoute";
+import AddOrModifyUserPage from "./users/components/AddOrModifyUserPage";
 
 export default function App() {
     return(
@@ -22,13 +23,18 @@ export default function App() {
                 <Route path='/' component={TopMenu} />
                 <Switch>
                     <LoginRoute path='/login' exact component={LoginPage} />
+
                     <PrivateRoute path='/' exact component={RolesAndCapabilitiesPage} />
                     <PrivateRoute path='/roles-and-capabilities' component={RolesAndCapabilitiesPage} />
-                    <PrivateRoute path='/users' component={UsersPage} />
+
+                    <PrivateRoute path='/users' exact component={UsersPage} />
+                    <PrivateRoute path='/users/add-user' component={AddOrModifyUserPage} />
+
                     <PrivateRoute path='/my-profile' component={ProfilePage} />
+
+                    <PrivateRoute path='/courses' exact component={CoursesPage} />
                     <PrivateRoute path='/courses/add-course' component={AddNewCoursePage} />
                     <PrivateRoute path='/courses/edit-course/:id' component={AddNewCoursePage} />
-                    <PrivateRoute path='/courses' exact component={CoursesPage} />
                 </Switch>
             </Layout>
         </Layout>
