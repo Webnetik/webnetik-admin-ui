@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Form, Input, Button } from 'antd';
 import { saveCourse, loadNewCourse, modifyCourse } from '../actions/index';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import openNotification from "../../common/components/Notification";
 
 const { TextArea } = Input;

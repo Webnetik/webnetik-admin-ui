@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {Button, Col, Drawer, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
 import UsersTable from './UsersTable';
@@ -7,55 +7,42 @@ import FormDrawer from "./FormDrawer";
 
 const { Header, Content } = Layout;
 
-class UsersPage extends Component {
+function UsersPage() {
+    const [formDrawerVisible, setFormDrawerVisible] = useState(null);
 
-    constructor(props) {
-        super(props);
+    const openFormDrawer = () => {
+        setFormDrawerVisible(!formDrawerVisible);
+    };
 
-        this.state = {
-            formDrawerVisible: false
-        }
-    }
+    const closeDrawer = () => {
+        setFormDrawerVisible(false);
+    };
 
-    openFormDrawer() {
-        this.setState({
-            formDrawerVisible: !this.state.formDrawerVisible
-        });
-    }
-
-    closeDrawer() {
-        this.setState({
-            formDrawerVisible: false
-        });
-    }
-
-    render() {
-        return (
-            <>
-                <Header className="site-layout-sub-header-background">
-                    <PageTitle title="Users" />
-                </Header>
-                <Content>
-                    <div className="site-layout-background">
-                        <Row>
-                            <Col>
-                                <UsersTable onEditUser={() => this.openFormDrawer()} />
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <FormDrawer title='Edit user'
-                                            visible={this.state.formDrawerVisible}
-                                            closeDrawer={() => this.closeDrawer()}>
-                                    <UserForm onClick={() => this.closeDrawer()} />
-                                </FormDrawer>
-                            </Col>
-                        </Row>
-                    </div>
-                </Content>
-            </>
-        );
-    }
-};
+    return (
+        <>
+            <Header className="site-layout-sub-header-background">
+                <PageTitle title="Users" />
+            </Header>
+            <Content>
+                <div className="site-layout-background">
+                    <Row>
+                        <Col>
+                            <UsersTable onEditUser={() => openFormDrawer()} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormDrawer title='Edit user'
+                                        visible={formDrawerVisible}
+                                        closeDrawer={() => closeDrawer()}>
+                                <UserForm onClick={() => closeDrawer()} />
+                            </FormDrawer>
+                        </Col>
+                    </Row>
+                </div>
+            </Content>
+        </>
+    );
+}
 
 export default UsersPage;

@@ -6,7 +6,7 @@ import Confirm from "../../common/components/TableConfirm";
 import openNotification from "../../common/components/Notification";
 import {useHistory} from "react-router";
 
-function CoursesTable({ data }) {
+function CoursesTable() {
     const courses = useSelector(state => state.courses);
     const dispatch = useDispatch();
     let history = useHistory();

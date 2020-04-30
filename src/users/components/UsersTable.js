@@ -59,8 +59,8 @@ class UsersTable extends PureComponent {
     }
 
     editUser(record) {
-        this.props.setUserDetailsForEdit(record);
-        this.props.onEditUser();
+        //this.props.setUserDetailsForEdit(record);
+        //this.props.onEditUser();
     }
 
     componentDidMount() {
@@ -90,4 +90,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { getUsers, setUserDetailsForEdit })(UsersTable);
+export default connect(mapStateToProps, { getUsers })(UsersTable);

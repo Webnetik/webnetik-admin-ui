@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { loadCourses } from '../actions/index';
+import React from 'react'
 import CoursesTable from "./CoursesTable";
 import {Col, Layout, Row, Button} from "antd";
 import PageTitle from "../../common/components/PageTitle";
-import CourseForm from "./CourseForm";
 import { Link } from "react-router-dom";
 
 function CoursesPage() {
     const { Header, Content } = Layout;
-    let [courses, setCourses] = useState(null);
-    let [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        const getCourses = async () => {
-            //setLoading(true);
-            //setCourses(await loadCourses());
-            //setLoading(false);
-        };
-        getCourses();
-    }, []);
 
     return (
         <>
