@@ -17,12 +17,17 @@ function PrivateRoute({ component: Component, ...rest }) {
     const [authenticated, setAuthenticated] = useState(null);
 
     useEffect( () => {
-        setAuthenticated(loadUser());
+        const authenticate = async () => {
+            setAuthenticated(await loadUser());
+        };
+        authenticate();
     }, []);
+
+    console.log(authenticated);
 
     if(authenticated !== null) {
         let route = null;
-        if(authenticated) {
+        if(authenticated && authenticated !== 'Token expired') {
             route = <Route {...rest} render={props => {
                 return <Component {...props} />;
             }} />;
@@ -41,12 +46,15 @@ export function LoginRoute({ component: Component, ...rest }) {
     const [authenticated, setAuthenticated] = useState(null);
 
     useEffect( () => {
-        setAuthenticated(authenticateUser());
+        const authenticate = async () => {
+            setAuthenticated(await authenticateUser());
+        };
+        authenticate();
     }, []);
 
     if(authenticated !== null) {
         let route = null;
-        if(!authenticated) {
+        if(!authenticated || authenticated === 'Token expired') {
             route = <Route {...rest} render={props => {
                 return  <Component {...props} />;
             }} />;

@@ -3,7 +3,7 @@ import {VALIDATE_USER_URL} from "../../login/actions/urls";
 
 import { publicInstance } from "./axiosInstances";
 
-function authenticateUser() {
+async function authenticateUser() {
     const token = localStorage.getItem('token');
     if(token === null) {
         return false;
@@ -11,9 +11,13 @@ function authenticateUser() {
         const data = {
             token: token
         };
-        return post(VALIDATE_USER_URL, data).then(response => {
+        const result = post(VALIDATE_USER_URL, data).then(response => {
             return response.data.result;
+        }).catch(error => {
+            return 'Token expired';
         });
+
+        return result;
     }
 }
 
