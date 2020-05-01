@@ -47,7 +47,6 @@ export function authenticateUser(redirectTarget = '/login') {
 }
 
 function validateUserToken(dispatch, token) {
-    console.log('validateUserToken: ');
     post(VALIDATE_USER_URL,
         {
             token
@@ -59,7 +58,6 @@ function validateUserToken(dispatch, token) {
             token
         }
     }).catch(error => {
-        console.log('HIBA: ', error.message);
         dispatch(doLogOut());
         redirect('/login');
     });

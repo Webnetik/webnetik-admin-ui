@@ -17,10 +17,10 @@ export default function App() {
     return(
         <Layout style={{ height: '100vh' }}>
             <Switch>
-                <Route path='/' component={MyMenu} />
+                <PrivateRoute path='/' component={MyMenu} />
             </Switch>
             <Layout>
-                <Route path='/' component={TopMenu} />
+                <PrivateRoute path='/' component={TopMenu} />
                 <Switch>
                     <LoginRoute path='/login' exact component={LoginPage} />
 

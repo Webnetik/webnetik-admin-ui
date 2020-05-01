@@ -16,8 +16,8 @@ class LoginForm extends Component {
         };
 
         this.layout = {
-            labelCol: { span: 8 },
-            wrapperCol: { span: 16 },
+            labelCol: { span: 6 },
+            wrapperCol: { span: 10 },
         };
         this.tailLayout = {
             wrapperCol: { offset: 8, span: 16 },
