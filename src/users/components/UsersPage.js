@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Col, Layout, Row} from 'antd';
 import PageTitle from '../../common/components/PageTitle';
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getUsers} from "../actions";
+import UsersTable from "./UsersTable";
 
 function UsersPage() {
     const { Header, Content } = Layout;
+    const users = useSelector(state => state.users.users);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const loadUses = async () => {
+            dispatch(await getUsers());
+        };
+        loadUses();
+    }, []);
 
     return (
         <>
@@ -20,7 +32,7 @@ function UsersPage() {
                     </Row>
                     <Row>
                         <Col>
-                            fsdf
+                            <UsersTable />
                         </Col>
                     </Row>
                 </div>

@@ -29,6 +29,7 @@ export default function App() {
 
                     <PrivateRoute path='/users' exact component={UsersPage} />
                     <PrivateRoute path='/users/add-user' component={AddOrModifyUserPage} />
+                    <PrivateRoute path='/users/edit-user/:id' component={AddOrModifyUserPage} />
 
                     <PrivateRoute path='/my-profile' component={ProfilePage} />
 

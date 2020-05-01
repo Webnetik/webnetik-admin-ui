@@ -1,15 +1,36 @@
-import React, {useState} from 'react';
-import {Form, Input, Button, Select} from 'antd';
-import {  } from '../actions/index';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
+import {Form, Input, Button, Select} from 'antd';
 import openNotification from "../../common/components/Notification";
-
-const { Option } = Select;
+import {loadNewCourse, modifyCourse, saveCourse} from "../../courses/actions";
+import {getRoles2} from "../../roles-and-capabilities/actions";
 
 function UserForm({ defaultValues }) {
     const [loading, setLoading] = useState(false);
-    const [roles] = useSelector(state => state.roles.roles);
-    const dispatch = useDispatch();
+    const [roles, setRoles] = useState(null);
+
+    useEffect(() => {
+        loadAllRoles();
+    }, []);
+
+    const loadAllRoles = () => {
+        const getRoles = async () => {
+            const roles = await getRoles2();
+            const roleNames = roles.map(role => role.name);
+            setRoles(roleNames);
+        };
+
+        getRoles();
+    };
+
+    const loadUserRoles = (defaultValues) => {
+        if(!!defaultValues.roles) {
+            defaultValues.roles = defaultValues.roles.map(role => role.name);
+        }
+        return defaultValues;
+    };
+
+    console.log('all roles: ', roles,  !!roles);
 
     const layout = {
         labelCol: { span: 8 },
@@ -23,20 +44,37 @@ function UserForm({ defaultValues }) {
     const onFinish = async (values) => {
         setLoading(true);
         /*if(!!defaultValues) {
-            const modifiedUser = await Promise.resolve('midify user');
-            openNotification({ title: 'User modified', message: `User '${modifiedUser.title}' modified` });
+            const modifiedCourse = await saveModifiedCourse(values);
+            openNotification({ title: 'Course modified', message: `Course '${modifiedCourse.title}' modified`, type: 'success' });
         } else {
-            const newUser = await Promise.resolve('new user');
-            openNotification({ title: 'User created', message: `User '${newUser.title}' created` });
+            const newCourse = await saveNewCourse(values);
+            openNotification({ title: 'Course created', message: `Course '${newCourse.title}' created`, type: 'success' });
         }*/
         setLoading(false);
     };
 
+    const saveNewCourse = async (values) => {
+        //const newCourse = await saveCourse(values.title, values.description);
+        //dispatch(await loadNewCourse(newCourse));
+        //return newCourse;
+    };
+
+    const saveModifiedCourse = async (values) => {
+        /*const courseToModify = {
+            ...defaultValues,
+            ...values
+        };
+        return await modifyCourse(courseToModify);*/
+    };
+
+    const onFinishFailed = () => {
+
+    };
+
     const getRolesNameSelectItems = () => {
         const items = [];
-        const rolesName = roles.map(role => role.name);
-        for (let i = 0; i < rolesName.length; i++) {
-            items.push(<Option key={rolesName[i]}>{rolesName[i]}</Option>);
+        for (let i = 0; i < roles.length; i++) {
+            items.push(<Select.Option key={roles[i]}>{roles[i]}</Select.Option>);
         }
         return items;
     };
@@ -45,14 +83,15 @@ function UserForm({ defaultValues }) {
         console.log('on change');
     };
 
-    if(!!children) {
+    if(!!roles) {
         return (
             <Form
                 {...layout}
                 name="basic"
                 className="ant-advanced-search-form"
-                initialValues={defaultValues}
+                initialValues={loadUserRoles(defaultValues)}
                 onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
             >
                 <Form.Item
                     label="Username"
@@ -80,10 +119,7 @@ function UserForm({ defaultValues }) {
                     name="roles">
                     <Select
                         mode="multiple"
-                        style={{ minWidth: "200px" }}
-                        placeholder="Please select"
-                        defaultValue={'user'}
-                        onChange={() => handleRoleChange()}>
+                        placeholder="Please select">
                         {getRolesNameSelectItems()}
                     </Select>
                 </Form.Item>

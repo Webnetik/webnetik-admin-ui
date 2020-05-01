@@ -19,7 +19,7 @@ authenticatedInstance.interceptors.request.use(async (config) => {
     const result = await authenticateUser();
 
     if(!!result) {
-       config.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
     } else {
         throw new Error('Token expired');
     }
@@ -27,18 +27,18 @@ authenticatedInstance.interceptors.request.use(async (config) => {
     return config;
 });
 
-const errorHandler = (error) => {
+/*const errorHandler = (error) => {
     console.log('authenticatedInstance: ', error);
 };
 
 const errorHandler2 = (error) => {
     console.log('publicInstance: ', error);
-};
+};*/
 
-authenticatedInstance.interceptors.request.use(
+/*authenticatedInstance.interceptors.request.use(
     error => errorHandler(error)
 );
 
 publicInstance.interceptors.request.use(
     error => errorHandler2(error)
-);
+);*/

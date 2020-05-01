@@ -23,10 +23,10 @@ function CourseForm({ defaultValues }) {
         setLoading(true);
         if(!!defaultValues) {
             const modifiedCourse = await saveModifiedCourse(values);
-            openNotification({ title: 'Course modified', message: `Course '${modifiedCourse.title}' modified` });
+            openNotification({ title: 'Course modified', message: `Course '${modifiedCourse.title}' modified`, type: 'success' });
         } else {
             const newCourse = await saveNewCourse(values);
-            openNotification({ title: 'Course created', message: `Course '${newCourse.title}' created` });
+            openNotification({ title: 'Course created', message: `Course '${newCourse.title}' created`, type: 'success' });
         }
         setLoading(false);
     };

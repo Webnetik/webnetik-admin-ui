@@ -12,6 +12,12 @@ export function getRoles() {
     }
 }
 
+export async function getRoles2() {
+    const result = await authenticatedInstance.get(GET_ROLES_URL);
+
+    return result.data.roles;
+}
+
 export function getCapabilities() {
     return async dispatch => {
         const result = await authenticatedInstance.get(GET_CAPABILITIES_URL);

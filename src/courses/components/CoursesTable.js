@@ -53,7 +53,7 @@ function CoursesTable() {
     const deleteRow = async (id) => {
         const courseDelete = await deleteCourse(id);
         dispatch(courseDelete);
-        openNotification({ title: 'Course deleted', message: `Deleted course with id: '${id}'` });
+        openNotification({ title: 'Course deleted', message: `Deleted course with id: '${id}'`, type: 'success' });
     };
 
     return <Table dataSource={courses.courses} columns={columns} rowKey='id' />

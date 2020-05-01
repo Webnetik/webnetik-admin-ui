@@ -3,9 +3,8 @@ import {Col, Layout, Row, Button} from "antd";
 import PageTitle from "../../common/components/PageTitle";
 import {Link} from "react-router-dom";
 import {useParams} from "react-router";
-import {useDispatch, useSelector} from "react-redux";
 import UserForm from './NewUserForm';
-import {getUsers} from "../actions";
+import {getUser} from "../actions";
 
 function AddOrModifyUserPage() {
     const { Header, Content } = Layout;
@@ -14,21 +13,19 @@ function AddOrModifyUserPage() {
     const [ title, setTitle ] = useState(null);
     const [ user, setUser] = useState(null);
 
-    const users = useSelector(state => state.users.users);
-    const dispatch = useDispatch();
-
     useEffect(() => {
-        if(!!id) {
-            if(users === null) {
-                dispatch(getUsers());
+        const loadUser = async () => {
+            console.log('id: ', id);
+            if(!!id) {
+                setTitle('Edit user');
+                const user = await getUser(id);
+                setUser({id, ...user});
+            } else {
+                setUser({});
+                setTitle('Add new user');
             }
-            const user = users.filter(user => user.id === Number.parseInt(id))[0];
-            setUser({id, ...user});
-            setTitle('Edit user');
-        } else {
-            setUser({ username: '', password: '' });
-            setTitle('Add new user');
-        }
+        };
+        loadUser();
     }, []);
 
     return (

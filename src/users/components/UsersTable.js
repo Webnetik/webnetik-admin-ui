@@ -1,93 +1,62 @@
-import React, {PureComponent} from 'react';
-import { connect } from 'react-redux';
-import {Table, Spin, Col, Tag} from 'antd';
+import React, {useEffect} from 'react';
+import { Table } from 'antd';
+import { useDispatch, useSelector } from "react-redux";
+import Confirm from "../../common/components/TableConfirm";
+import openNotification from "../../common/components/Notification";
+import {useHistory} from "react-router";
+import {getUsers} from "../actions";
 
-import { getUsers } from '../actions/index';
-import { setUserDetailsForEdit } from '../actions/userForm';
+function UsersTable() {
+    const users = useSelector(state => state.users);
+    const dispatch = useDispatch();
+    let history = useHistory();
 
-class UsersTable extends PureComponent {
+    const columns = [
+        {
+            title: 'ID',
+            dataIndex: 'id',
+            key: 'id',
+        },
+        {
+            title: 'Username',
+            dataIndex: 'username',
+            key: 'username',
+        },
+        {
+            title: 'password',
+            dataIndex: 'password',
+            key: 'password',
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (text, record) => (
+                <span>
+                    <a style={{ marginRight: 16 }} onClick={() => editRow(record)}>Edit</a>
+                    <Confirm id={record.id} onConfirm={deleteRow} />
+                </span>
+            ),
+        },
+    ];
 
-    constructor(props) {
-        super(props);
-
-        this.columns = [
-            {
-                title: 'ID',
-                dataIndex: 'id',
-                key: 'id',
-            },
-            {
-                title: 'Username',
-                dataIndex: 'username',
-                key: 'username',
-            },
-            {
-                title: 'Password',
-                dataIndex: 'password',
-                key: 'password',
-            },
-            {
-                title: 'Roles',
-                key: 'roles',
-                dataIndex: 'roles',
-                render: roles => (
-                    <span>
-                        {roles.map(role => {
-                            let color = 'green';
-                            if (role.name === 'admin') {
-                                color = 'volcano';
-                            }
-                            return (
-                                <Tag color={color} key={role.name}>
-                                    {role.name}
-                                </Tag>
-                            );
-                        })}
-                    </span>
-                ),
-            },
-            {
-                title: 'Action',
-                key: 'action',
-                render: (text, record) => (
-                    <span>
-                        <a onClick={() => this.editUser(record)}>Edit</a>
-                    </span>
-                ),
-            },
-        ];
-    }
-
-    editUser(record) {
-        //this.props.setUserDetailsForEdit(record);
-        //this.props.onEditUser();
-    }
-
-    componentDidMount() {
-        this.props.getUsers();
-    }
-
-    render() {
-        if(this.props.users) {
-            return (
-                <Col>
-                    <Table dataSource={this.props.users} columns={this.columns} rowKey='id'  />
-                </Col>
-            )
-        } else {
-            return (
-                <Col md={{span: 12, offset: 6}}>
-                    <Spin />
-                </Col>
-            )
+    useEffect(() => {
+        async function loadUsers() {
+            dispatch(await getUsers());
         }
-    }
-}
+        loadUsers();
+    }, []);
 
-function mapStateToProps(state) {
-    return {
-        users: state.users.users
-    }
-}
+    const editRow = (record) => {
+        history.push(`/users/edit-user/${record.id}`);
+    };
 
-export default connect(mapStateToProps, { getUsers })(UsersTable);
+    const deleteRow = async (id) => {
+        /*const courseDelete = await deleteCourse(id);
+        dispatch(courseDelete);
+        openNotification({ title: 'Course deleted', message: `Deleted course with id: '${id}'`, type: 'success' });*/
+    };
+
+    return <Table dataSource={users.users} columns={columns} rowKey='id' />
+};
+
+export default UsersTable;
