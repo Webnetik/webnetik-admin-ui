@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Form, Input, Button, Select} from 'antd';
+import {Form, Input, Button, Select, Spin} from 'antd';
 import openNotification from "../../common/components/Notification";
 import {loadNewCourse, modifyCourse, saveCourse} from "../../courses/actions";
 import {getRoles2} from "../../roles-and-capabilities/actions";
@@ -10,7 +10,9 @@ function UserForm({ defaultValues }) {
     const [roles, setRoles] = useState(null);
 
     useEffect(() => {
+        setLoading(true);
         loadAllRoles();
+        setLoading(false);
     }, []);
 
     const loadAllRoles = () => {
@@ -29,8 +31,6 @@ function UserForm({ defaultValues }) {
         }
         return defaultValues;
     };
-
-    console.log('all roles: ', roles,  !!roles);
 
     const layout = {
         labelCol: { span: 8 },
@@ -83,7 +83,9 @@ function UserForm({ defaultValues }) {
         console.log('on change');
     };
 
-    if(!!roles) {
+    if(!!loading || !!!roles) {
+        return <Spin />
+    } else {
         return (
             <Form
                 {...layout}
@@ -131,8 +133,6 @@ function UserForm({ defaultValues }) {
                 </Form.Item>
             </Form>
         );
-    } else {
-        return <></>;
     }
 };
 
